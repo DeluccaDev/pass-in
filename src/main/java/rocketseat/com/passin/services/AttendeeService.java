@@ -2,6 +2,7 @@ package rocketseat.com.passin.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 import rocketseat.com.passin.domain.attendee.Attendee;
 import rocketseat.com.passin.domain.attendee.exceptions.AttendeeAlreadyExistException;
 import rocketseat.com.passin.domain.attendee.exceptions.AttendeeNotFoundException;
@@ -52,10 +53,12 @@ public class AttendeeService {
         return newAttendee;
     }
 
-    public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId) {
+    public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
         Attendee attendee = this.attendeeRepository.findById(attendeeId).orElseThrow(() -> new AttendeeNotFoundException("Attendee not found whit ID:" + attendeeId));
 
-        AttendeeBadgeDTO badgeDTO = new AttendeeBadgeDTO(attendee.getName(), attendee.getEmail(), "", attendee.getEvent().getId());
+        var uri = uriComponentsBuilder.path("/attendees/{attendeId}/check-in").buildAndExpand(attendeeId).toUri().toString();
+
+        AttendeeBadgeDTO badgeDTO = new AttendeeBadgeDTO(attendee.getName(), attendee.getEmail(), uri, attendee.getEvent().getId());
         return new AttendeeBadgeResponseDTO(badgeDTO);
     }
 }
