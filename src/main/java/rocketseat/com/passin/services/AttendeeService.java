@@ -24,7 +24,7 @@ public class AttendeeService {
 
     private final AttendeeRepository attendeeRepository;
 
-    private final ChekinRepository chekinRepository;
+    private final CheckInService checkInService;
 
     public List<Attendee> getAllAttendeesFromEvent(String eventId) {
         return this.attendeeRepository.findByEventId(eventId);
@@ -34,7 +34,7 @@ public class AttendeeService {
         List<Attendee> attendeeList = this.getAllAttendeesFromEvent(eventId);
 
         List<AttendeeDetail> attendeeDetailList = attendeeList.stream().map(attendee -> {
-            Optional<Chekin> chekin = this.chekinRepository.findByAttendeeId(attendee.getId());
+            Optional<Chekin> chekin = this.checkInService.getCheckIn(attendee.getId());
             LocalDateTime checkedInAt = chekin.<LocalDateTime>map(Chekin::getCreatedAt).orElse(null);
             return new AttendeeDetail(attendee.getId(), attendee.getName(), attendee.getEmail(), attendee.getCreatedAt(), checkedInAt);
         }).toList();
@@ -53,8 +53,17 @@ public class AttendeeService {
         return newAttendee;
     }
 
+    public void checkInAttendee(String attendeeId) {
+        Attendee attendee = this.getAttendee(attendeeId);
+        this.checkInService.registerCheckIn(attendee);
+    }
+
+    private Attendee getAttendee(String attendeeId) {
+        return this.attendeeRepository.findById(attendeeId).orElseThrow(() -> new AttendeeNotFoundException("Attendee not found whit ID:" + attendeeId));
+    }
+
     public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
-        Attendee attendee = this.attendeeRepository.findById(attendeeId).orElseThrow(() -> new AttendeeNotFoundException("Attendee not found whit ID:" + attendeeId));
+        Attendee attendee = this.getAttendee(attendeeId);
 
         var uri = uriComponentsBuilder.path("/attendees/{attendeId}/check-in").buildAndExpand(attendeeId).toUri().toString();
 
