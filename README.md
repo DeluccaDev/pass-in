@@ -1,3 +1,13 @@
+🚀 Tecnologias
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+Java
+
+💻 Projeto:
+Aplicação desenvolvida durante o NLW Unite da Rocketseat
+
+Pass.in - Sistema de check-in para eventos presenciais.
+
 > O pass.In é uma aplicação para a gestão de participantes em eventos presenciais.
 > 
 - A Ferramenta permite que o organizador cadastre um evento e abra uma pagina publica de inscrição.
