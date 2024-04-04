@@ -1,13 +1,21 @@
-🚀 Tecnologias
--
+## 🚀 Tecnologias
+
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-* Java
+- Java
+- Springboot
 
-💻 Projeto:
--
+## 💻 Projeto:
+
 Aplicação desenvolvida durante o NLW Unite da Rocketseat
 
+Pass.in - Sistema de check-in para eventos presenciais.
+
+## 🎨 Requisitos:
+
+https://www.notion.so/Aula-01-Pass-in-39891374cb85415b97856fc422ca7f91
+
+---
 
 Pass.in - Sistema de check-in para eventos presenciais.
 
