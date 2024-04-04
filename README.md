@@ -110,3 +110,7 @@ Pass.in - Sistema de check-in para eventos presenciais.
 - Criar Endpoint
 - POST /attendees/{attendeeId}/check-in
 - Tratamento das exceções
+
+---
+
+Feito por Fernanda Kieep feat. [Rocketseat](https://rocketseat.com.br)
