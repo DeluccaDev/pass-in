@@ -34,5 +34,4 @@ public class Attendee {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    private String nome;
 }
